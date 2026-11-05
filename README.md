@@ -41,19 +41,18 @@ Reviewing static study images, lecture slides, and notes is often passive and ti
 
 ```mermaid
 flowchart TD
-    A["User Uploads 1–3 Images\n(.png, .jpg, .jpeg)"] --> B["Image Processing & Validation\n(Pillow / PIL)"]
-    C["Difficulty Selection\n(Easy / Medium / Hard)"] --> B
+    A["User Uploads Images (1 to 3)<br/>Format: PNG, JPG, JPEG"] --> B["Image Processing & Validation<br/>(Pillow / PIL)"]
+    C["Difficulty Selection<br/>(Easy / Medium / Hard)"] --> I["Gemini Quiz Generator<br/>(Context-Grounded Prompt)"]
     
-    B --> D["Gemini Multimodal Model\n(gemini-3-flash-preview)"]
+    B --> D["Gemini Multimodal Model<br/>(gemini-3-flash-preview)"]
+    D --> E["Structured Markdown Note<br/>(Under 100 words)"]
     
-    D --> E["Structured Markdown Note\n(≤ 100 words)"]
+    E --> F["Text Sanitization<br/>(Clean Markdown tags)"]
+    F --> G["Text-to-Speech Engine<br/>(gTTS in-memory stream)"]
+    G --> H["Streamlit Audio Player<br/>(st.audio)"]
     
-    E --> F["Text Sanitization\n(Markdown artifact cleanup)"]
-    F --> G["Text-to-Speech Engine\n(gTTS + io.BytesIO stream)"]
-    G --> H["Audio Player Component\n(st.audio)"]
-    
-    E & C --> I["Gemini Quiz Generator\n(Context-grounded prompt)"]
-    I --> J["Adaptive Quiz Display\n(st.markdown)"]
+    E --> I
+    I --> J["Adaptive Quiz Display<br/>(st.markdown)"]
 ```
 
 ---
